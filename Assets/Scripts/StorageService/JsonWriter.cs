@@ -1,6 +1,8 @@
 using System;
 using System.IO;
+using System.Xml;
 using UnityEngine;
+using Newtonsoft.Json;
 
 public class JsonWriter : IStorageService
 {
@@ -16,10 +18,18 @@ public class JsonWriter : IStorageService
 
         using (var fileStream = new StreamReader(path))
         {
+            var json = fileStream.ReadToEnd();
+            var settings = new JsonSerializerSettings
+            {
+                TypeNameHandling = TypeNameHandling.All,
+                PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+                NullValueHandling = NullValueHandling.Ignore
+            };
 
-            var data = JsonUtility.FromJson<T>(path);
+            var data = JsonConvert.DeserializeObject<T>(json, settings);
             callback.Invoke(data);
         }
+
     }
 
     public void Save(string key, object data, Action<bool> callback = null)
@@ -32,9 +42,17 @@ public class JsonWriter : IStorageService
             Directory.CreateDirectory(directory);
         }
 
+        var settings = new JsonSerializerSettings
+        {
+            TypeNameHandling = TypeNameHandling.All,
+            Formatting = Newtonsoft.Json.Formatting.Indented,
+            PreserveReferencesHandling = PreserveReferencesHandling.Objects,
+            NullValueHandling = NullValueHandling.Ignore
+        };
+
         try
         {
-            string json = JsonUtility.ToJson(data);
+            string json = JsonConvert.SerializeObject(data, settings);
 
             using (var fileStream = new StreamWriter(path))
             {

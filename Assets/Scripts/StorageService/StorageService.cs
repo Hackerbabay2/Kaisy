@@ -8,13 +8,12 @@ public class StorageService : MonoBehaviour
     [Inject] private IStorageService _storageService;
 
     private GameData _gameData;
-    private List<BaseStorage> _saveables;
+    private List<BaseStorage> _saveables = new List<BaseStorage>();
 
     public GameData GameData => _gameData;
 
     private void Awake()
     {
-        _saveables = new List<BaseStorage>();
         _gameData = new GameData(new Dictionary<string, SaveData>());
     }
 
@@ -50,10 +49,18 @@ public class StorageService : MonoBehaviour
 
     public IEnumerator Load()
     {
+        _storageService.Load<GameData>(GetKey(), data =>
+        {
+            if (data != null)
+            {
+                _gameData = new GameData(data.SaveableObjects);
+            }
+        });
+
         foreach (var saveable in _saveables)
         {
             var saveKey = saveable.GetSaveKey();
-
+            Debug.Log(_gameData.SaveableObjects.Count);
             if (_gameData.SaveableObjects.TryGetValue(saveKey, out var savedData))
             {
                 saveable.Load(savedData);

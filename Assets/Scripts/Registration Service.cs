@@ -1,6 +1,8 @@
 using TMPro;
 using UnityEngine;
 using UnityEngine.Playables;
+using UnityEngine.SceneManagement;
+using Zenject;
 
 public class RegistrationService : MonoBehaviour
 {
@@ -22,7 +24,18 @@ public class RegistrationService : MonoBehaviour
     [SerializeField] private string _shortPassword;
     [SerializeField] private string _shortLogin;
     [SerializeField] private string _passwordMatch;
+    [SerializeField] private string _userExists;
+    [SerializeField] private string _successfulSignUp;
 
+    [Inject] private NotificationDisplayer _notificationDisplayer;
+    [Inject] private DataBase _dataBase;
+    [Inject] private StorageService _storageService;
+    [Inject] private UserData _userData;
+
+    private void Start()
+    {
+        StartCoroutine(_storageService.Load());
+    }
 
     public void ShowLoginForm()
     {
@@ -36,21 +49,11 @@ public class RegistrationService : MonoBehaviour
         _loginForm.SetActive(false);
     }
 
-    public bool CheckForEmpty(TMP_InputField field, string notification = "Field is empty")
-    {
-        if (field.text == string.Empty)
-        {
-            Debug.Log(notification);
-            return false;
-        }
-        return true;
-    }
-
     public bool CheckForLength(TMP_InputField field, int min, string notification = "Incorrect length")
     {
         if (field.text.Length < min)
         {
-            Debug.Log(notification);
+            _notificationDisplayer.ShowNotificationSafety(notification);
             return true;
         }
         return false;
@@ -58,42 +61,60 @@ public class RegistrationService : MonoBehaviour
 
     public void SignUp()
     {
-        if (CheckForEmpty(_signupLoginField, _shortLogin) || CheckForLength(_signupLoginField, 3, _shortLogin))
+        if (CheckForLength(_signupLoginField, 3, _shortLogin))
         {
             return;
         }
 
-        if (CheckForEmpty(_signupPasswordField, _shortPassword) || CheckForLength(_signupLoginField, 8, _shortPassword))
+        if (CheckForLength(_signupPasswordField, 8, _shortPassword))
         {
             return;
         }
 
-        if (CheckForEmpty(_signupConfirmPasswordField) || CheckForLength(_signupConfirmPasswordField, 8, _shortPassword))
+        if (CheckForLength(_signupConfirmPasswordField, 8, _shortPassword))
         {
             return;
         }
 
-        if (_signupConfirmPasswordField != _signupPasswordField)
+        if (_signupConfirmPasswordField.text != _signupPasswordField.text)
         {
-            Debug.Log(_passwordMatch);
+            _notificationDisplayer.ShowNotificationSafety(_passwordMatch);
             return;
         }
 
-        //Обращение к базе на проверку аккаунта
+        if (_dataBase.Data.CheckForExistUser(_signupLoginField.text))
+        {
+            _notificationDisplayer.ShowNotificationSafety(_userExists);
+            return;
+        }
+
+        _dataBase.Data.AddUser(_signupLoginField.text, _signupPasswordField.text);
+        StartCoroutine(_storageService.Save());
+        _notificationDisplayer.ShowNotificationSafety(_successfulSignUp);
     }
 
     public void Login()
     {
-        if (CheckForEmpty(_loginField, _shortLogin) || CheckForLength(_loginField, 3, _shortLogin))
+        if (CheckForLength(_loginField, 3, _shortLogin))
         {
             return;
         }
 
-        if (CheckForEmpty(_passwordField, _shortPassword) || CheckForLength(_passwordField, 8, _shortPassword))
+        if (CheckForLength(_passwordField, 8, _shortPassword))
         {
             return;
         }
 
-        //
+        User user = _dataBase.Data.GetUser(_loginField.text, _passwordField.text);
+
+        if (user != null)
+        {
+            _userData.Initialize(user);
+            SceneManager.LoadScene("Test");
+        }
+        else
+        {
+            _notificationDisplayer.ShowNotificationSafety(_incorrectPassword);
+        }
     }
 }

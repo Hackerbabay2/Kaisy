@@ -7,5 +7,6 @@ public class ApplicationInstaller : MonoInstaller
     {
         Container.Bind<IStorageService>().To<JsonWriter>().AsSingle();
         Container.Bind<StorageService>().FromComponentInHierarchy().AsSingle();
+        Container.Bind<DataBase>().FromComponentInHierarchy().AsSingle();
     }
 }

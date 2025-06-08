@@ -74,4 +74,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e552f0cf8f70dd48be3303a706a3d1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _userData: {fileID: 8852407116793617735, guid: 2b985f9e78108624390f91e341b74edf, type: 3}
+  _storageServicePrefab: {fileID: 1171303498199077653, guid: aeebd6083bdeff940bd5b0d77d9d82d2, type: 3}
+  _dataBasePrefab: {fileID: 2505453464374981704, guid: ced0a2c5c76908f4abd5e3fefd694031, type: 3}

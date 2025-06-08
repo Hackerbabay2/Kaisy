@@ -9,6 +9,7 @@ public class ProductBusketModifier : MonoBehaviour
     [Inject] private BusketLoader _busketLoader;
     [Inject] private UserData _userData;
     [Inject] private NotificationDisplayer _notificationDisplayer;
+    [Inject] private StorageService _storageService;
 
     public void AddProduct()
     {
@@ -18,6 +19,7 @@ public class ProductBusketModifier : MonoBehaviour
             return;
         }
         _userData.User.AddProduct(_productInitializer.Product);
+        StartCoroutine(_storageService.Save());
     }
 
     public void RemoveProduct()
@@ -28,5 +30,6 @@ public class ProductBusketModifier : MonoBehaviour
         }
         _userData.User.RemoveProduct(_productInitializer.Product);
         _busketLoader.UpdateCartProducts();
+        StartCoroutine(_storageService.Save());
     }
 }

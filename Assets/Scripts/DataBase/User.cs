@@ -29,6 +29,30 @@ public class User
         Orders = new List<Order>();
     }
 
+    public void AddFollowed(Product product)
+    {
+        if (product == null)
+        {
+            throw new ArgumentNullException(nameof(product), "Product cannot be null");
+        }
+        if (!FollowedIds.Contains(product.id))
+        {
+            FollowedIds.Add(product.id);
+        }
+    }
+
+    public void RemoveFollowed(Product product)
+    {
+        if (product == null)
+        {
+            throw new ArgumentNullException(nameof(product), "Product cannot be null");
+        }
+        if (FollowedIds.Contains(product.id))
+        {
+            FollowedIds.Remove(product.id);
+        }
+    }
+
     public void AddProduct(Product product)
     {
         if (product == null)

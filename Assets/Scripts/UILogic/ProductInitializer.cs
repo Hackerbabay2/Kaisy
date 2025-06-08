@@ -8,6 +8,7 @@ public class ProductInitializer : MonoBehaviour
     [SerializeField] private TMP_Text _price;
     [SerializeField] private RectTransform _containter;
     [SerializeField] private GameObject _imagePrefab;
+    [SerializeField] private FollowedButtonHandler _followedButtonHandler;
 
     private Product _product;
 
@@ -18,6 +19,11 @@ public class ProductInitializer : MonoBehaviour
         _product = product;
         _titel.text = product.title;
         _price.text = product.price.ToString();
+
+        if (_followedButtonHandler != null)
+        {
+            _followedButtonHandler.UpdateHeartState();
+        }
 
         foreach (Sprite image in product.images)
         {

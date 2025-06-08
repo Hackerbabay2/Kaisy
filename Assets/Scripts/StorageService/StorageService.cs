@@ -60,7 +60,7 @@ public class StorageService : MonoBehaviour
         foreach (var saveable in _saveables)
         {
             var saveKey = saveable.GetSaveKey();
-            Debug.Log(_gameData.SaveableObjects.Count);
+
             if (_gameData.SaveableObjects.TryGetValue(saveKey, out var savedData))
             {
                 saveable.Load(savedData);

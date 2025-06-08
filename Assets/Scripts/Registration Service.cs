@@ -110,7 +110,7 @@ public class RegistrationService : MonoBehaviour
         if (user != null)
         {
             _userData.Initialize(user);
-            SceneManager.LoadScene("Test");
+            SceneManager.LoadScene("MainScene");
         }
         else
         {

@@ -633,10 +633,6 @@ MonoBehaviour:
       \u043F\u0440\u0438 \u0442\u0435\u043C\u043F\u0435\u0440\u0430\u0442\u0443\u0440\u0435
       30 \u0433\u0440\u0430\u0434\u0443\u0441\u043E\u0432."
     images:
-    - {fileID: -1701019044863254583, guid: 32f6bef47c6faf04382e30024902b1f7, type: 3}
-    - {fileID: 5343518138492759243, guid: 0ec714e467672eb4491599cd05d3a7d7, type: 3}
-    - {fileID: -3296180592510220842, guid: 3f49d2d2f55a487409e3efbe8a54a375, type: 3}
-    - {fileID: 7987492526470702433, guid: 1f8303b551aa5d541a154785ed3335eb, type: 3}
     - {fileID: 21300000, guid: b3421a77af5ac1d42ae21c95218fd6d7, type: 3}
     - {fileID: 21300000, guid: 35d5585342549744e9f12d277b3bbf28, type: 3}
     - {fileID: 21300000, guid: 1a05bc1e6f6ec0f4bafd3b85edf06601, type: 3}
@@ -657,10 +653,6 @@ MonoBehaviour:
     description: "\u0443\u0445\u043E\u0434 \u0418\u043D\u0444\u043E\u0440\u043C\u0430\u0446\u0438\u044F
       \u0441\u043A\u043E\u0440\u043E \u043F\u043E\u044F\u0432\u0438\u0442\u0441\u044F."
     images:
-    - {fileID: -9141567883531655833, guid: 31bf436732e702e41bcbdc3709b42d02, type: 3}
-    - {fileID: -7460750631478666190, guid: 590af7c655831bd48ace57bfd713b1cd, type: 3}
-    - {fileID: -9168456058745508465, guid: c2ee6f4a8c7ef7a43ad4eae51c33e115, type: 3}
-    - {fileID: -9104931101066913328, guid: 0b2d1ea209fe08d4ea1e8afc7a9862d6, type: 3}
     - {fileID: 21300000, guid: 743f082dc57001c4e9ec0cc57dabd4f1, type: 3}
     - {fileID: 21300000, guid: 5ad5e2b5c128da24c99c7a8aa0fafa2a, type: 3}
     - {fileID: 21300000, guid: 98994cda608cb7c408f0a26c823a8a1a, type: 3}

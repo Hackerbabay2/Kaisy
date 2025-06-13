@@ -58,5 +58,10 @@ public class BusketLoader : MonoBehaviour
             }
             _cartCost.text = $"Стоимость корзины: {_cartCostValue} руб.";
         }
+        else
+        {
+            _cartCostValue = 0;
+            _cartCost.text = $"Стоимость корзины: {_cartCostValue} руб.";
+        }
     }
 }
